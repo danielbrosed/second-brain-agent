@@ -1,0 +1,44 @@
+{"id": "q01", "correct": true}
+{"id": "q02", "correct": true}
+{"id": "q03", "correct": true}
+{"id": "q04", "correct": true, "note": "Gives the price and the minimum commitment, which is what was asked; omits the 30-day notice."}
+{"id": "q05", "correct": true}
+{"id": "q06", "correct": true}
+{"id": "q07", "correct": true, "note": "Complete and correct; the judge was wrong."}
+{"id": "q08", "correct": true, "note": "The question asks about cold email only."}
+{"id": "q09", "correct": true}
+{"id": "q10", "correct": true}
+{"id": "q11", "correct": true}
+{"id": "q12", "correct": true, "note": "States the total that was asked; the breakdown is extra."}
+{"id": "q13", "correct": true, "debatable": true, "note": "Says 'scheduled for January 2027' where the note says 'postponed at the client's request'."}
+{"id": "q14", "correct": true}
+{"id": "q15", "correct": true}
+{"id": "q16", "correct": true, "debatable": true, "note": "Says where it lives (1Password, Studio vault) without naming the item 'n8n admin'."}
+{"id": "q17", "correct": true}
+{"id": "q18", "correct": true}
+{"id": "q19", "correct": true}
+{"id": "q20", "correct": true}
+{"id": "q21", "correct": true, "debatable": true, "note": "Facts right, but frames 9 of 30 studios as 'only'."}
+{"id": "q22", "correct": true}
+{"id": "q23", "correct": false, "note": "Routing miss: the map row says MRR, the question says monthly recurring revenue."}
+{"id": "q24", "correct": true, "note": "Names the largest customer, which is what was asked."}
+{"id": "q25", "correct": true}
+{"id": "q26", "correct": true, "note": "Complete and correct; the judge was wrong."}
+{"id": "q27", "correct": true}
+{"id": "q28", "correct": true}
+{"id": "q29", "correct": true}
+{"id": "q30", "correct": true, "note": "Answers the question; omits the GDPR reason, which was not asked."}
+{"id": "q31", "correct": true, "debatable": true, "note": "Lists the roadmap without saying it is not committed; the trust warning says it is unverified."}
+{"id": "q32", "correct": true}
+{"id": "q33", "correct": true}
+{"id": "q34", "correct": true}
+{"id": "q35", "correct": true}
+{"id": "q36", "correct": true}
+{"id": "q37", "correct": true}
+{"id": "q38", "correct": true}
+{"id": "q39", "correct": true}
+{"id": "q40", "correct": true}
+{"id": "q41", "correct": true}
+{"id": "q42", "correct": true}
+{"id": "q43", "correct": true}
+{"id": "q44", "correct": true}

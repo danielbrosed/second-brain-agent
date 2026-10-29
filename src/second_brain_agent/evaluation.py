@@ -80,9 +80,18 @@ def tokens(*, output, **_):
     return Evaluation(name="tokens", value=float(output["tokens"]))
 
 
+def with_one_retry(fn, *args, **kwargs):
+    """Small judge models occasionally emit invalid JSON under strict decoding; try once more."""
+    try:
+        return fn(*args, **kwargs)
+    except Exception:
+        return fn(*args, **kwargs)
+
+
 def make_judge(llm: BaseChatModel, method: str):
     def correct(*, input, output, expected_output, **_):
-        verdict = prompts.run_structured(
+        verdict = with_one_retry(
+            prompts.run_structured,
             prompts.JUDGE,
             llm,
             Verdict,
@@ -261,3 +270,161 @@ def summarize(rows: list[dict]) -> dict:
     summary["seconds"] = round(mean(r["output"]["seconds"] for r in rows), 2) if rows else 0.0
     summary["correct_by_kind"] = {k: round(mean(v), 3) for k, v in sorted(by_kind.items())}
     return summary
+
+
+# --- judge calibration ---------------------------------------------------------------------
+#
+# The judge is only worth its scores if it agrees with a person. Calibration runs the judge
+# prompt over answers a person has labelled (evals/judge_labels.jsonl), as a Langfuse experiment
+# on its own dataset, and reports where they disagree. ~85% agreement is roughly human level.
+
+JUDGE_NAME = "answer-correctness"
+CALIBRATION = f"judge-calibration/{JUDGE_NAME}"
+LABELS_FILE = REPO_ROOT / "evals" / "judge_labels.jsonl"
+
+
+def calibration_items(results_file: str) -> list[dict]:
+    """What the judge sees in a real run (question, facts, answer), with the human label."""
+    report = json.loads((REPO_ROOT / results_file).read_text(encoding="utf-8"))
+    questions = {i["id"]: i for i in load_items()}
+    lines = LABELS_FILE.read_text(encoding="utf-8").splitlines()
+    labels = {row["id"]: row for row in map(json.loads, filter(str.strip, lines))}
+    items = []
+    for row in report["rows"]:
+        question, label = questions[row["id"]], labels.get(row["id"])
+        if label is None:
+            continue
+        expected = question["expected_output"]
+        items.append(
+            {
+                "id": row["id"],
+                "input": {
+                    "question": question["input"]["question"],
+                    "facts": "; ".join(expected["facts"]) or "(none)",
+                    "answerable": "yes" if expected["answerable"] else "no",
+                    "answer": row["output"]["answer"],
+                },
+                "expected_output": {"correct": label["correct"]},
+                "metadata": {
+                    "kind": row["kind"],
+                    "debatable": bool(label.get("debatable")),
+                    "label_note": label.get("note", ""),
+                    "source_run": report["run_name"],
+                },
+            }
+        )
+    return items
+
+
+def ensure_calibration_assets(items: list[dict]) -> None:
+    """The calibration dataset, and version 1 of the judge prompt copied from the repository."""
+    client = tracing.client()
+    try:
+        client.get_dataset(CALIBRATION)
+    except Exception:
+        client.create_dataset(
+            name=CALIBRATION,
+            description="Agent answers labelled by a person, to measure the correctness judge.",
+        )
+    for item in items:
+        client.create_dataset_item(
+            dataset_name=CALIBRATION,
+            id=f"cal-{item['id']}",
+            input=item["input"],
+            expected_output=item["expected_output"],
+            metadata=item["metadata"],
+        )
+    try:
+        client.get_prompt(CALIBRATION, type="chat", version=1, cache_ttl_seconds=0)
+    except Exception:
+        client.create_prompt(
+            name=CALIBRATION,
+            prompt=prompts.PROMPTS[prompts.JUDGE],
+            type="chat",
+            commit_message="Version in use when calibration started",
+        )
+
+
+def judge_output_correct(*, output, expected_output, **_):
+    agrees = output["correct"] == expected_output["correct"]
+    return Evaluation(name=f"{JUDGE_NAME}-judge-output-correct", value=agrees, data_type="BOOLEAN")
+
+
+def calibrate_judge(judge_llm: BaseChatModel, method: str, results_file: str, version: int) -> dict:
+    items = calibration_items(results_file)
+    ensure_calibration_assets(items)
+    client = tracing.client()
+    wanted = {f"cal-{i['id']}" for i in items}
+    data = [i for i in client.get_dataset(CALIBRATION).items if i.id in wanted]
+
+    def task(*, item, **_):
+        handler = tracing.handler()
+        verdict = with_one_retry(
+            prompts.run_structured,
+            CALIBRATION,
+            judge_llm,
+            Verdict,
+            method,
+            "judge-answer",
+            item.input,
+            config={"callbacks": [handler] if handler else []},
+            version=version,
+        )
+        return {"correct": verdict.correct, "reason": verdict.reason}
+
+    result = client.run_experiment(
+        name=CALIBRATION,
+        run_name=f"v{version}-{datetime.now():%Y%m%d-%H%M}",
+        description=f"Judge prompt version {version} against human labels.",
+        data=data,
+        task=task,
+        evaluators=[judge_output_correct],
+        max_concurrency=1,
+        metadata={"prompt_version": str(version)},
+    )
+    tracing.flush()
+    rows = []
+    for r in result.item_results:
+        agrees = next(
+            (e.value for e in r.evaluations if e.name.endswith("judge-output-correct")), None
+        )
+        rows.append(
+            {
+                "id": r.item.id.removeprefix("cal-"),
+                "kind": r.item.metadata.get("kind"),
+                "debatable": r.item.metadata.get("debatable"),
+                "expected": r.item.expected_output["correct"],
+                "judge": (r.output or {}).get("correct"),
+                "reason": (r.output or {}).get("reason", ""),
+                "agrees": agrees,
+            }
+        )
+    scored = [r for r in rows if r["agrees"] is not None]
+    accuracy = sum(bool(r["agrees"]) for r in scored) / len(scored) if scored else 0.0
+    return {
+        "version": version,
+        "accuracy": round(accuracy, 3),
+        "judged": len(scored),
+        "items": len(rows),
+        "mismatches": [r for r in rows if r["agrees"] is False],
+        "failed": [r["id"] for r in rows if r["agrees"] is None],
+        "url": getattr(result, "experiment_url", None),
+    }
+
+
+def propose_judge_version() -> int:
+    """Copy the repository's judge prompt into the calibration prompt as a new version if it
+    changed, so a candidate is measured before it replaces the judge in production."""
+    client = tracing.client()
+    messages = prompts.PROMPTS[prompts.JUDGE]
+    latest = client.get_prompt(CALIBRATION, type="chat", label="latest", cache_ttl_seconds=0)
+    current = [(m["role"], m["content"]) for m in latest.prompt]
+    if current == [(m["role"], m["content"]) for m in messages]:
+        return latest.version
+    created = client.create_prompt(
+        name=CALIBRATION,
+        prompt=messages,
+        type="chat",
+        commit_message="Grade what the question asks for; omitting unasked facts is not an error",
+    )
+    return created.version

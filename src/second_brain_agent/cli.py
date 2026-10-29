@@ -170,6 +170,36 @@ def cmd_prompts(args, settings: Settings) -> int:
     return 0
 
 
+def cmd_judge(args, settings: Settings) -> int:
+    if not tracing.enabled():
+        print("Judge calibration runs as a Langfuse experiment: set the Langfuse keys first.")
+        return 1
+    from .evaluation import calibrate_judge, propose_judge_version
+    from .llm import chat_model
+
+    if args.action == "propose":
+        print(f"Calibration prompt is at version {propose_judge_version()}")
+        return 0
+    if not args.results:
+        print("--results is required to calibrate")
+        return 1
+    judge = chat_model(settings, settings.judge_model)
+    report = calibrate_judge(judge, settings.structured_method, args.results, args.version)
+    print(
+        f"Judge prompt v{report['version']} ({settings.judge_model}): agrees with the human "
+        f"labels on {report['accuracy']:.1%} of {report['judged']} answers."
+    )
+    if report["failed"]:
+        print(f"Judge failed on: {', '.join(report['failed'])}")
+    for m in report["mismatches"]:
+        flag = " (label debatable)" if m["debatable"] else ""
+        print(f"  {m['id']} [{m['kind']}] human={m['expected']} judge={m['judge']}{flag}")
+        print(f"      judge: {m['reason']}")
+    if report["url"]:
+        print(f"\nLangfuse: {report['url']}")
+    return 0
+
+
 def cmd_graph(args, settings: Settings) -> int:
     from langchain_core.language_models.fake_chat_models import FakeListChatModel
 
@@ -213,6 +243,12 @@ def main(argv: list[str] | None = None) -> int:
     prompts_cmd = sub.add_parser("prompts", help="manage prompts in Langfuse")
     prompts_cmd.add_argument("action", choices=["push"])
     prompts_cmd.set_defaults(func=cmd_prompts)
+
+    judge_cmd = sub.add_parser("judge", help="calibrate the LLM judge against human labels")
+    judge_cmd.add_argument("action", choices=["propose", "calibrate"])
+    judge_cmd.add_argument("--results", help="an evals/results/*.json run, for calibrate")
+    judge_cmd.add_argument("--version", type=int, default=1, help="judge prompt version")
+    judge_cmd.set_defaults(func=cmd_judge)
 
     sub.add_parser("lint", help="check the vault against the method").set_defaults(func=cmd_lint)
     sub.add_parser("graph", help="print the agent graph as Mermaid").set_defaults(func=cmd_graph)

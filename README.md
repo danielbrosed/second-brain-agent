@@ -85,7 +85,34 @@ experiments swap only the retriever:
 
 ## Results
 
-Results of the first full run go here.
+### Calibrating the judge first
+
+An LLM judge is only worth its scores if it agrees with a person. I labelled by hand the 44
+answers from the first map-first run (correct if it answers what the question asks without
+contradicting or inventing anything) and measured the judge, `gpt-oss-20b`, against those labels
+as a Langfuse experiment on its own dataset, `judge-calibration/answer-correctness`.
+
+| Judge prompt | Rule | Agreement with the human labels |
+|---|---|---|
+| v1 | the answer must state every expected fact | 65.1% (28 of 43) |
+| v2 | grade what the question asks for; contradicting any fact fails | **97.7% (42 of 43)** |
+
+Version 1 failed correct answers for leaving out details the question never asked for ("Do we
+send cold emails?" → "No" failed for not adding "nor cold LinkedIn messages"). Version 2 changes
+that one rule. The remaining disagreement is a label I marked as debatable. The labels and their
+notes are in [`evals/judge_labels.jsonl`](evals/judge_labels.jsonl).
+
+The same run surfaced two real agent failures:
+
+- Asked for a credential, the agent said where it lives but flagged the answer as not found.
+  Fixed in the answer prompt (v2), for both retrievers.
+- "What is Tidepool's monthly recurring revenue?" found nothing, because the map row says
+  "MRR". This one is left unfixed on purpose: tuning the router to a test question would only
+  inflate the score. It is a real weakness of routing by the map's wording.
+
+### Map-first vs vector
+
+Both retrievers, with the same prompt versions and the calibrated judge: pending.
 
 ## Quickstart
 

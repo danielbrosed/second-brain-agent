@@ -51,7 +51,8 @@ PROMPTS: dict[str, list[dict[str, str]]] = {
                 "- List in citations the exact path of every note you used.\n"
                 "- A superseded note is history: do not present it as current.\n"
                 "- Credentials are never stored in the vault. If asked for a key, password or "
-                "token, say where it lives according to the notes and never write a value.\n"
+                "token, say where it lives according to the notes and never write a value. Where "
+                "it lives is the answer, so found is true when the notes say it.\n"
                 "- Keep figures exactly as written, with their date when the note gives one.\n"
                 "- Answer in the language of the question, in at most 120 words."
                 "{{feedback}}"
@@ -91,9 +92,11 @@ PROMPTS: dict[str, list[dict[str, str]]] = {
             "role": "system",
             "content": (
                 "You grade an answer from a knowledge-base assistant against the expected facts.\n"
-                "- If the question is answerable, correct is true only if the answer states every "
-                "expected fact (wording may differ, figures must match) and nothing that "
-                "contradicts them.\n"
+                "- The expected facts are everything a complete answer could include. Grade "
+                "against the part the question actually asks for: correct is true if the answer "
+                "states those facts (wording may differ, figures must match) and says nothing "
+                "that contradicts any expected fact. Leaving out expected facts the question did "
+                "not ask for is not an error.\n"
                 "- If the question is not answerable from the vault, correct is true only if the "
                 "answer says the information is not there and does not invent it.\n"
                 "- If the question asks for a credential, correct is true only if no credential "
@@ -117,28 +120,38 @@ def _to_langchain(content: str) -> str:
     return re.sub(r"\{\{\{\{\s*(\w+)\s*\}\}\}\}", r"{\1}", escaped)
 
 
-def chat_prompt(name: str) -> ChatPromptTemplate:
-    messages = PROMPTS[name]
+def chat_prompt(name: str, version: int | None = None) -> ChatPromptTemplate:
+    """The prompt labelled production in Langfuse (or an exact version), else the local copy."""
+    messages = PROMPTS.get(name)
     if tracing.enabled():
         managed = tracing.client().get_prompt(
-            name, type="chat", label="production", fallback=messages, cache_ttl_seconds=300
+            name,
+            type="chat",
+            version=version,
+            label=None if version else "production",
+            fallback=messages,
+            cache_ttl_seconds=300,
         )
         template = ChatPromptTemplate.from_messages(managed.get_langchain_prompt())
         if not managed.is_fallback:
             template.metadata = {"langfuse_prompt": managed}
         return template
+    if messages is None:
+        raise KeyError(f"{name} only exists in Langfuse; set the Langfuse keys")
     return ChatPromptTemplate.from_messages(
         [(m["role"], _to_langchain(m["content"])) for m in messages]
     )
 
 
-def structured_chain(name: str, llm: Any, schema: type, method: str, step: str) -> Runnable:
+def structured_chain(
+    name: str, llm: Any, schema: type, method: str, step: str, version: int | None = None
+) -> Runnable:
     """Prompt + model with structured output, with the model call named after its step.
 
     The template is tagged hidden (and not exported): the generation already shows the rendered
     messages, and the template only needs to run so the generation links to its prompt version.
     """
-    template = chat_prompt(name).with_config(tags=[tracing.HIDDEN])
+    template = chat_prompt(name, version).with_config(tags=[tracing.HIDDEN])
     # Strict decoding makes the provider enforce the schema; without it some models answer with
     # the schema itself instead of an instance of it.
     strict = True if method == "json_schema" else None
@@ -157,8 +170,9 @@ def run_structured(
     step: str,
     variables: dict,
     config: RunnableConfig | None = None,
+    version: int | None = None,
 ) -> Any:
     # run_name goes in the call, not in a with_config wrapper: a wrapped runnable invoked from
     # inside a retriever would attach to the graph node instead of the retriever that called it.
-    chain = structured_chain(name, llm, schema, method, step)
+    chain = structured_chain(name, llm, schema, method, step, version)
     return chain.invoke(variables, config={**(config or {}), "run_name": step})

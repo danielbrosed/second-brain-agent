@@ -1,0 +1,1187 @@
+{
+  "run_name": "map-gpt-oss-120b-20261029-1841",
+  "retriever": "map",
+  "model": "openai/gpt-oss-120b",
+  "as_of": "2026-10-30",
+  "items": 44,
+  "summary": {
+    "citation_recall": 0.976,
+    "correct": 0.605,
+    "found_matches_expected": 0.932,
+    "retrieval_recall": 0.976,
+    "tokens": 2615.568,
+    "trust_warning": 0.8,
+    "seconds": 9.78,
+    "correct_by_kind": {
+      "credential": 0.333,
+      "cross-note": 0.0,
+      "decision-why": 0.75,
+      "lookup": 0.6,
+      "superseded": 1.0,
+      "trust": 0.4,
+      "unanswerable": 1.0
+    }
+  },
+  "langfuse_url": "https://cloud.langfuse.com/project/cmvtrvcgb00mzad0jhrp70s5y/experiments/results?baseline=db49a614b54020cb",
+  "rows": [
+    {
+      "id": "q44",
+      "kind": "credential",
+      "output": {
+        "answer": "Tidepool usa Stripe para los pagos (suscripciones y pagos de estudio mediante Stripe Connect). La clave secreta en vivo se guarda en la variable de entorno de Vercel `STRIPE_SECRET_KEY` y también en 1Password bajo \"Tidepool\" → \"Stripe live\".",
+        "found": true,
+        "citations": [
+          "tidepool/platforms.md"
+        ],
+        "read": [
+          "tidepool/platforms.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2871,
+        "seconds": 1.97
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2871.0,
+        "correct": 1.0
+      },
+      "trace_id": "a7525003693b1021961ac577f2485e04"
+    },
+    {
+      "id": "q43",
+      "kind": "superseded",
+      "output": {
+        "answer": "El plan Starter cuesta €29 al mes más IVA (y €290 al año más IVA si se factura anualmente).",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2560,
+        "seconds": 1.41
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2560.0,
+        "correct": 1.0
+      },
+      "trace_id": "0b91fcabbd9b6532efb0aec8bf5caeb7"
+    },
+    {
+      "id": "q42",
+      "kind": "unanswerable",
+      "output": {
+        "answer": "The notes do not provide the name of the freelance designer who works with the studio.",
+        "found": false,
+        "citations": [
+          "studio/what-it-is.md"
+        ],
+        "read": [
+          "studio/what-it-is.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2587,
+        "seconds": 3.83
+      },
+      "scores": {
+        "found_matches_expected": 1.0,
+        "tokens": 2587.0,
+        "correct": 1.0
+      },
+      "trace_id": "216a8261f75d603714fdad09fe9ebeb6"
+    },
+    {
+      "id": "q41",
+      "kind": "cross-note",
+      "output": {
+        "answer": "Buttondown is the tool that sends Field Notes, and the biggest sponsor in 2026 was Ledgerline.",
+        "found": true,
+        "citations": [
+          "fieldnotes/platforms.md",
+          "fieldnotes/sponsorship.md"
+        ],
+        "read": [
+          "fieldnotes/platforms.md",
+          "fieldnotes/sponsorship.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2795,
+        "seconds": 13.89
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2795.0,
+        "correct": 0.0
+      },
+      "trace_id": "0c2f7d1b82575fa373d9dd9bc15f6772"
+    },
+    {
+      "id": "q40",
+      "kind": "lookup",
+      "output": {
+        "answer": "The production keys were last rotated on 2026-09-30.",
+        "found": true,
+        "citations": [
+          "shared/accounts-and-keys.md"
+        ],
+        "read": [
+          "shared/accounts-and-keys.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2659,
+        "seconds": 8.8
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2659.0,
+        "correct": 0.0
+      },
+      "trace_id": "05b93ccdc0c5560bea58896a6b189009"
+    },
+    {
+      "id": "q39",
+      "kind": "lookup",
+      "output": {
+        "answer": "Issue a corrective invoice using the corrective series (e.g., R-2026-001); numbers are never reused or deleted, so the mistake is fixed by creating a corrective invoice in that series.",
+        "found": true,
+        "citations": [
+          "shared/invoicing.md"
+        ],
+        "read": [
+          "shared/invoicing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2660,
+        "seconds": 6.66
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2660.0,
+        "correct": 1.0
+      },
+      "trace_id": "d7335dbb5bcffbc21869c6e3a9fb9953"
+    },
+    {
+      "id": "q38",
+      "kind": "lookup",
+      "output": {
+        "answer": "No. For EU businesses like a German company that provides a valid VAT number, we do not charge VAT; we apply the reverse‑charge mechanism and note this on the invoice.",
+        "found": true,
+        "citations": [
+          "shared/invoicing.md"
+        ],
+        "read": [
+          "shared/invoicing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2677,
+        "seconds": 11.87
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2677.0,
+        "correct": 0.0
+      },
+      "trace_id": "c1a124c3542c424023bde85d7f1985ad"
+    },
+    {
+      "id": "q37",
+      "kind": "lookup",
+      "output": {
+        "answer": "Every Tuesday at 8:00 CET.",
+        "found": true,
+        "citations": [
+          "fieldnotes/what-it-is.md"
+        ],
+        "read": [
+          "fieldnotes/what-it-is.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2386,
+        "seconds": 17.12
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2386.0,
+        "correct": 1.0
+      },
+      "trace_id": "fac02504ed6b7f85b9be22f624b81560"
+    },
+    {
+      "id": "q36",
+      "kind": "decision-why",
+      "output": {
+        "answer": "No, Field Notes will not launch a paid tier; it will stay free as stated in the decision note.",
+        "found": true,
+        "citations": [
+          "fieldnotes/decisions/2026-08-18-stays-free.md"
+        ],
+        "read": [
+          "fieldnotes/decisions/2026-08-18-stays-free.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2353,
+        "seconds": 13.09
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2353.0,
+        "correct": 1.0
+      },
+      "trace_id": "c005bff8477decb21caad397af05ed1b"
+    },
+    {
+      "id": "q35",
+      "kind": "lookup",
+      "output": {
+        "answer": "No, Field Notes would not accept a crypto trading platform as a sponsor.",
+        "found": true,
+        "citations": [
+          "fieldnotes/sponsorship.md"
+        ],
+        "read": [
+          "fieldnotes/sponsorship.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2500,
+        "seconds": 6.2
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2500.0,
+        "correct": 1.0
+      },
+      "trace_id": "4b84cd96d61135b4f014ae1450dab719"
+    },
+    {
+      "id": "q34",
+      "kind": "lookup",
+      "output": {
+        "answer": "Sponsoring Field Notes costs €350 + VAT per issue, or €1,200 + VAT for a package of four issues.",
+        "found": true,
+        "citations": [
+          "fieldnotes/sponsorship.md"
+        ],
+        "read": [
+          "fieldnotes/sponsorship.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2447,
+        "seconds": 3.55
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2447.0,
+        "correct": 1.0
+      },
+      "trace_id": "1d88743bcea8ce550cd5c8958760a6aa"
+    },
+    {
+      "id": "q33",
+      "kind": "trust",
+      "output": {
+        "answer": "About 4,200 subscribers.",
+        "found": true,
+        "citations": [
+          "fieldnotes/audience.md"
+        ],
+        "read": [
+          "fieldnotes/audience.md"
+        ],
+        "warnings": [
+          "fieldnotes/audience.md is unverified: stated by the founder, no written source.",
+          "fieldnotes/audience.md was last updated 150 days ago."
+        ],
+        "attempts": 1,
+        "tokens": 2306,
+        "seconds": 10.13
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "trust_warning": 1.0,
+        "tokens": 2306.0,
+        "correct": 1.0
+      },
+      "trace_id": "50bc303055c60c777ebc9591cfd2b147"
+    },
+    {
+      "id": "q32",
+      "kind": "lookup",
+      "output": {
+        "answer": "No, Tidepool does not take a commission on bookings.",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2692,
+        "seconds": 16.44
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2692.0,
+        "correct": 0.0
+      },
+      "trace_id": "45a72acc938751e5904ee90e0da3ca7f"
+    },
+    {
+      "id": "q31",
+      "kind": "trust",
+      "output": {
+        "answer": "Tidepool plans to build a booking link for a studio’s Instagram bio (targeted for November 2026), followed by gift cards in the first quarter of 2027, and then class‑pack support in Apple and Google Wallet if studios request it.",
+        "found": true,
+        "citations": [
+          "tidepool/roadmap.md"
+        ],
+        "read": [
+          "tidepool/roadmap.md"
+        ],
+        "warnings": [
+          "tidepool/roadmap.md is unverified: stated by the founder, no written source."
+        ],
+        "attempts": 1,
+        "tokens": 2497,
+        "seconds": 14.09
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "trust_warning": 1.0,
+        "tokens": 2497.0,
+        "correct": 0.0
+      },
+      "trace_id": "dcfc7fa952b254bd501f8ab86c877784"
+    },
+    {
+      "id": "q30",
+      "kind": "lookup",
+      "output": {
+        "answer": "No. Studios cannot write free‑text notes about a member’s injuries; free‑text notes are disabled and only fixed tags such as “beginner”, “returning” and “prefers morning classes” are available.",
+        "found": true,
+        "citations": [
+          "tidepool/decisions/2026-06-02-no-free-text-member-notes.md"
+        ],
+        "read": [
+          "tidepool/decisions/2026-06-02-no-free-text-member-notes.md"
+        ],
+        "warnings": [
+          "tidepool/decisions/2026-06-02-no-free-text-member-notes.md was last updated 150 days ago."
+        ],
+        "attempts": 1,
+        "tokens": 2689,
+        "seconds": 11.03
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2689.0,
+        "correct": 0.0
+      },
+      "trace_id": "cbb62aa403d1e0ec03a9c5d8b05b62fc"
+    },
+    {
+      "id": "q29",
+      "kind": "lookup",
+      "output": {
+        "answer": "Tidepool's data is stored in the EU (Supabase, Frankfurt).",
+        "found": true,
+        "citations": [
+          "tidepool/privacy.md"
+        ],
+        "read": [
+          "tidepool/privacy.md"
+        ],
+        "warnings": [
+          "tidepool/privacy.md was last updated 150 days ago."
+        ],
+        "attempts": 1,
+        "tokens": 2494,
+        "seconds": 19.3
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2494.0,
+        "correct": 1.0
+      },
+      "trace_id": "d1683caf0420d518adfb4e5c3bd71e00"
+    },
+    {
+      "id": "q28",
+      "kind": "lookup",
+      "output": {
+        "answer": "Yes. Annual plans are refunded pro rata if the studio asks within 30 days of paying.",
+        "found": true,
+        "citations": [
+          "tidepool/support.md"
+        ],
+        "read": [
+          "tidepool/support.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2520,
+        "seconds": 13.0
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2520.0,
+        "correct": 1.0
+      },
+      "trace_id": "05287d8406f2d06b1c18ed7c979c14b1"
+    },
+    {
+      "id": "q27",
+      "kind": "lookup",
+      "output": {
+        "answer": "No, Tidepool does not offer phone support.",
+        "found": true,
+        "citations": [
+          "tidepool/support.md"
+        ],
+        "read": [
+          "tidepool/support.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2506,
+        "seconds": 1.29
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2506.0,
+        "correct": 0.0
+      },
+      "trace_id": "c2181a2515882f334c30de948ba4aa7c"
+    },
+    {
+      "id": "q26",
+      "kind": "credential",
+      "output": {
+        "answer": "The live secret key is stored in Vercel's environment variable `STRIPE_SECRET_KEY` and in 1Password under “Tidepool → Stripe live”; it is not disclosed here.",
+        "found": false,
+        "citations": [
+          "tidepool/platforms.md"
+        ],
+        "read": [
+          "tidepool/platforms.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2812,
+        "seconds": 14.9
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 0.0,
+        "tokens": 2812.0,
+        "correct": 0.0
+      },
+      "trace_id": "4e63ad7034bce27225f4760ce382f0dc"
+    },
+    {
+      "id": "q25",
+      "kind": "unanswerable",
+      "output": {
+        "answer": "The monthly churn rate is not provided in the notes.",
+        "found": false,
+        "citations": [
+          "tidepool/customers.md",
+          "tidepool/INDEX.md"
+        ],
+        "read": [
+          "tidepool/customers.md",
+          "tidepool/INDEX.md"
+        ],
+        "warnings": [
+          "tidepool/customers.md is a snapshot copied from its source; check the source before publishing or charging this figure."
+        ],
+        "attempts": 1,
+        "tokens": 2981,
+        "seconds": 8.72
+      },
+      "scores": {
+        "found_matches_expected": 1.0,
+        "tokens": 2981.0,
+        "correct": 1.0
+      },
+      "trace_id": "9971cd709b732fdef04c01e33df964e8"
+    },
+    {
+      "id": "q24",
+      "kind": "trust",
+      "output": {
+        "answer": "Flowstate Pilates",
+        "found": true,
+        "citations": [
+          "tidepool/customers.md"
+        ],
+        "read": [
+          "tidepool/customers.md"
+        ],
+        "warnings": [
+          "tidepool/customers.md is a snapshot copied from its source; check the source before publishing or charging this figure."
+        ],
+        "attempts": 1,
+        "tokens": 2473,
+        "seconds": 15.44
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "trust_warning": 1.0,
+        "tokens": 2473.0,
+        "correct": 0.0
+      },
+      "trace_id": "d431258490f217fbdfeda9932a9177e4"
+    },
+    {
+      "id": "q23",
+      "kind": "trust",
+      "output": {
+        "answer": "The vault has no note that covers this.",
+        "found": false,
+        "citations": [],
+        "read": [],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 1925,
+        "seconds": 13.14
+      },
+      "scores": {
+        "retrieval_recall": 0.0,
+        "citation_recall": 0.0,
+        "found_matches_expected": 0.0,
+        "trust_warning": 0.0,
+        "tokens": 1925.0,
+        "correct": 0.0
+      },
+      "trace_id": "10a036eec0a8a006952d9acd1ffed3de"
+    },
+    {
+      "id": "q22",
+      "kind": "trust",
+      "output": {
+        "answer": "Tidepool has 41 paying studios.",
+        "found": true,
+        "citations": [
+          "tidepool/customers.md"
+        ],
+        "read": [
+          "tidepool/customers.md"
+        ],
+        "warnings": [
+          "tidepool/customers.md is a snapshot copied from its source; check the source before publishing or charging this figure."
+        ],
+        "attempts": 1,
+        "tokens": 2493,
+        "seconds": 18.29
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "trust_warning": 1.0,
+        "tokens": 2493.0,
+        "correct": 1.0
+      },
+      "trace_id": "b54bca610b83c009fdf3f5bad5d409d9"
+    },
+    {
+      "id": "q21",
+      "kind": "decision-why",
+      "output": {
+        "answer": "Tidepool retired the Solo plan for new studios because it was under‑performing: only 9 of the first 30 studios chose it, those studios upgraded far less than expected, and the cheap Solo plan was cannibalising the Starter tier while support costs were the same across plans.",
+        "found": true,
+        "citations": [
+          "tidepool/decisions/2026-09-14-two-plans.md"
+        ],
+        "read": [
+          "tidepool/decisions/2026-09-14-two-plans.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2746,
+        "seconds": 11.53
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2746.0,
+        "correct": 1.0
+      },
+      "trace_id": "2428b0ae74741594df53d86fe07a6960"
+    },
+    {
+      "id": "q20",
+      "kind": "lookup",
+      "output": {
+        "answer": "Studios on the legacy Solo plan (€19/month) can keep that plan until 2026‑12‑31, after which they will be moved to the Starter plan.",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2615,
+        "seconds": 12.42
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2615.0,
+        "correct": 1.0
+      },
+      "trace_id": "a7a1dc2590ff7249a3115949bdb05373"
+    },
+    {
+      "id": "q19",
+      "kind": "lookup",
+      "output": {
+        "answer": "Yes, Tidepool offers a 14‑day free trial and it does not require a card.",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2525,
+        "seconds": 11.27
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2525.0,
+        "correct": 1.0
+      },
+      "trace_id": "d15e296e3ab6db20b634ad70f9fadd68"
+    },
+    {
+      "id": "q18",
+      "kind": "lookup",
+      "output": {
+        "answer": "The Tidepool Studio plan costs €790 per year (plus VAT).",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2623,
+        "seconds": 10.67
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2623.0,
+        "correct": 1.0
+      },
+      "trace_id": "513c66484c06a90cdbb760ddaea0719c"
+    },
+    {
+      "id": "q17",
+      "kind": "superseded",
+      "output": {
+        "answer": "Tidepool offers two plans: the Starter plan at €29 per month + VAT and the Studio plan at €79 per month + VAT.",
+        "found": true,
+        "citations": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "read": [
+          "tidepool/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2617,
+        "seconds": 10.63
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2617.0,
+        "correct": 1.0
+      },
+      "trace_id": "0dbd5a1e04827ca108393a420c1fab17"
+    },
+    {
+      "id": "q16",
+      "kind": "credential",
+      "output": {
+        "answer": "The n8n admin password is not stored in the notes; it resides in 1Password, specifically in the Studio vault as indicated in the accounts-and-keys documentation.",
+        "found": false,
+        "citations": [
+          "shared/accounts-and-keys.md"
+        ],
+        "read": [
+          "shared/accounts-and-keys.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2878,
+        "seconds": 2.1
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 0.0,
+        "tokens": 2878.0,
+        "correct": 0.0
+      },
+      "trace_id": "375912c6de35173bad88aef315957b4b"
+    },
+    {
+      "id": "q15",
+      "kind": "lookup",
+      "output": {
+        "answer": "No, we cannot promise a client that the automation will save 40% of their time; the policy is to never promise a percentage of time saved.",
+        "found": true,
+        "citations": [
+          "studio/red-lines.md"
+        ],
+        "read": [
+          "studio/red-lines.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2534,
+        "seconds": 9.23
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2534.0,
+        "correct": 0.0
+      },
+      "trace_id": "0f54ea42b6d1fc3c5b80121f5420f0c8"
+    },
+    {
+      "id": "q14",
+      "kind": "lookup",
+      "output": {
+        "answer": "No. The studio’s target is professional‑services firms of 5‑50 people; companies above 250 people are explicitly listed as not a fit, so a 400‑person insurance company would not be suitable.",
+        "found": true,
+        "citations": [
+          "studio/icp.md"
+        ],
+        "read": [
+          "studio/icp.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2643,
+        "seconds": 4.37
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2643.0
+      },
+      "trace_id": "0f30c04216bfad047d86f6d6a017d889"
+    },
+    {
+      "id": "q13",
+      "kind": "lookup",
+      "output": {
+        "answer": "The build for Brinewood Ceramics is scheduled for January 2027.",
+        "found": true,
+        "citations": [
+          "studio/clients.md"
+        ],
+        "read": [
+          "studio/clients.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2715,
+        "seconds": 9.06
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2715.0,
+        "correct": 0.0
+      },
+      "trace_id": "9ff144eb33d486667df43dcc42770644"
+    },
+    {
+      "id": "q12",
+      "kind": "lookup",
+      "output": {
+        "answer": "Quillmark Legal paid a total of €4,800 + VAT.",
+        "found": true,
+        "citations": [
+          "studio/clients.md"
+        ],
+        "read": [
+          "studio/clients.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2763,
+        "seconds": 4.51
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2763.0,
+        "correct": 0.0
+      },
+      "trace_id": "0059aec7337cb1a03b6ffc536d7c187c"
+    },
+    {
+      "id": "q11",
+      "kind": "lookup",
+      "output": {
+        "answer": "Hearth & Rye Bakery",
+        "found": true,
+        "citations": [
+          "studio/clients.md"
+        ],
+        "read": [
+          "studio/clients.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2794,
+        "seconds": 12.84
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2794.0,
+        "correct": 1.0
+      },
+      "trace_id": "3ac556078200da0a28f7443b5f6f1d32"
+    },
+    {
+      "id": "q10",
+      "kind": "lookup",
+      "output": {
+        "answer": "New → Diagnosis booked → Audit proposed → Audit won → Build proposed → Build won, or Lost at any stage with a reason.",
+        "found": true,
+        "citations": [
+          "studio/acquisition.md"
+        ],
+        "read": [
+          "studio/acquisition.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2677,
+        "seconds": 13.61
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2677.0,
+        "correct": 1.0
+      },
+      "trace_id": "9ccae42123f1cb0d7e18e2835c918f9b"
+    },
+    {
+      "id": "q09",
+      "kind": "lookup",
+      "output": {
+        "answer": "The partner accountancy earns 10% of the client’s first invoice, paid after the client has paid.",
+        "found": true,
+        "citations": [
+          "studio/acquisition.md"
+        ],
+        "read": [
+          "studio/acquisition.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2664,
+        "seconds": 5.22
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2664.0,
+        "correct": 1.0
+      },
+      "trace_id": "ce5fa06e27d897c6ab034c38335ce326"
+    },
+    {
+      "id": "q08",
+      "kind": "lookup",
+      "output": {
+        "answer": "No, we do not send cold emails to find studio clients.",
+        "found": true,
+        "citations": [
+          "studio/decisions/2026-09-03-no-cold-outreach.md"
+        ],
+        "read": [
+          "studio/decisions/2026-09-03-no-cold-outreach.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2542,
+        "seconds": 7.5
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2542.0,
+        "correct": 0.0
+      },
+      "trace_id": "7ae218537a549e4627844d9573e6fec7"
+    },
+    {
+      "id": "q07",
+      "kind": "decision-why",
+      "output": {
+        "answer": "The €600 price applies (the proposal was sent before 2026‑10‑01, so the €600 price is kept until 2026‑10‑31).",
+        "found": true,
+        "citations": [
+          "studio/decisions/2026-10-01-audit-price-900.md"
+        ],
+        "read": [
+          "studio/decisions/2026-10-01-audit-price-900.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2851,
+        "seconds": 4.7
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2851.0,
+        "correct": 0.0
+      },
+      "trace_id": "402c9ecef16fb464a4d34ce38aa7e2dd"
+    },
+    {
+      "id": "q06",
+      "kind": "decision-why",
+      "output": {
+        "answer": "The price rose because the audits actually required 14‑16 hours each—not the 10 hours the €600 price assumed—and the audits are now used as case studies, justifying the higher cost.",
+        "found": true,
+        "citations": [
+          "studio/decisions/2026-10-01-audit-price-900.md"
+        ],
+        "read": [
+          "studio/decisions/2026-10-01-audit-price-900.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2708,
+        "seconds": 6.79
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2708.0,
+        "correct": 1.0
+      },
+      "trace_id": "03b8113c0cd72667698a79863e7721a8"
+    },
+    {
+      "id": "q05",
+      "kind": "lookup",
+      "output": {
+        "answer": "The client pays for third‑party API and model usage; it is billed directly to the client’s own account.",
+        "found": true,
+        "citations": [
+          "studio/offer-and-pricing.md"
+        ],
+        "read": [
+          "studio/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2683,
+        "seconds": 5.6
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2683.0,
+        "correct": 1.0
+      },
+      "trace_id": "9aea7644584725ddc25a91eb0415f08e"
+    },
+    {
+      "id": "q04",
+      "kind": "lookup",
+      "output": {
+        "answer": "The care plan costs €450 + VAT per month, with a three‑month minimum commitment.",
+        "found": true,
+        "citations": [
+          "studio/offer-and-pricing.md"
+        ],
+        "read": [
+          "studio/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2706,
+        "seconds": 5.47
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2706.0,
+        "correct": 0.0
+      },
+      "trace_id": "fc95987b43fc5bd4ebbd485ac31103e4"
+    },
+    {
+      "id": "q03",
+      "kind": "lookup",
+      "output": {
+        "answer": "The build is paid 50 % at kick‑off and the remaining 50 % at delivery.",
+        "found": true,
+        "citations": [
+          "studio/offer-and-pricing.md"
+        ],
+        "read": [
+          "studio/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2636,
+        "seconds": 7.13
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2636.0,
+        "correct": 1.0
+      },
+      "trace_id": "5a2795627bad2a93b53f8507aaca6e92"
+    },
+    {
+      "id": "q02",
+      "kind": "lookup",
+      "output": {
+        "answer": "Yes. If the client hires a build within 60 days of the audit, the audit fee is credited against the build cost.",
+        "found": true,
+        "citations": [
+          "studio/offer-and-pricing.md"
+        ],
+        "read": [
+          "studio/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2648,
+        "seconds": 12.27
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2648.0,
+        "correct": 1.0
+      },
+      "trace_id": "69ba60bcabe34241331207650e665e97"
+    },
+    {
+      "id": "q01",
+      "kind": "superseded",
+      "output": {
+        "answer": "€900 + VAT",
+        "found": true,
+        "citations": [
+          "studio/offer-and-pricing.md"
+        ],
+        "read": [
+          "studio/offer-and-pricing.md"
+        ],
+        "warnings": [],
+        "attempts": 1,
+        "tokens": 2634,
+        "seconds": 19.31
+      },
+      "scores": {
+        "retrieval_recall": 1.0,
+        "citation_recall": 1.0,
+        "found_matches_expected": 1.0,
+        "tokens": 2634.0,
+        "correct": 1.0
+      },
+      "trace_id": "de74985ee42d43e05556e3a4f0dbfcef"
+    }
+  ]
+}
