@@ -182,7 +182,7 @@ def cmd_graph(args, settings: Settings) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(errors="replace")
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(prog="sba", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 

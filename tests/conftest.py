@@ -17,7 +17,7 @@ class ScriptedLLM:
         self.queues = {name: list(items) for name, items in queues.items()}
         self.calls: list[tuple[str, str]] = []
 
-    def with_structured_output(self, schema, method=None):
+    def with_structured_output(self, schema, method=None, strict=None):
         def run(prompt_value):
             self.calls.append((schema.__name__, prompt_value.to_string()))
             return self.queues[schema.__name__].pop(0)

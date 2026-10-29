@@ -63,10 +63,12 @@ class MapFirstRetriever(BaseRetriever):
     def _get_relevant_documents(
         self, query: str, *, run_manager: CallbackManagerForRetrieverRun
     ) -> list[Document]:
-        chain = prompts.structured_chain(
-            prompts.ROUTE, self.llm, RouteDecision, self.structured_method, "select-notes"
-        )
-        decision = chain.invoke(
+        decision = prompts.run_structured(
+            prompts.ROUTE,
+            self.llm,
+            RouteDecision,
+            self.structured_method,
+            "select-notes",
             {"map": self.vault.map_text(), "question": query},
             config={"callbacks": run_manager.get_child()},
         )

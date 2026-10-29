@@ -22,6 +22,10 @@ from .vault import redact_secrets
 
 HIDDEN = "langsmith:hidden"  # LangChain tag the Langfuse callback records at DEBUG level
 
+# Framework internals that say nothing about what the agent did: LangGraph's start step and its
+# conditional-edge routers (the functions in graph.py), and output parsers.
+_NOISE = {"__start__", "entry", "after_check", "after_draft", "after_review", "RunnableLambda"}
+
 _client = None
 
 
@@ -39,6 +43,18 @@ def mask(*, data: Any, **_: Any) -> Any:
     return data
 
 
+def should_export(span) -> bool:
+    """Langfuse's default filter, minus framework noise and anything recorded at DEBUG level."""
+    from langfuse import LangfuseOtelSpanAttributes, is_default_export_span
+
+    if not is_default_export_span(span):
+        return False
+    name = span.name or ""
+    if name in _NOISE or name.endswith("OutputParser"):
+        return False
+    return (span.attributes or {}).get(LangfuseOtelSpanAttributes.OBSERVATION_LEVEL) != "DEBUG"
+
+
 def client():
     """The single Langfuse client; created before any handler so they all share its masking."""
     global _client
@@ -47,6 +63,7 @@ def client():
 
         _client = Langfuse(
             mask=mask,
+            should_export_span=should_export,
             environment=os.getenv("LANGFUSE_TRACING_ENVIRONMENT", "development"),
             release=__version__,
         )
@@ -94,9 +111,10 @@ def root(
         yield _Untraced()
         return
     from langfuse import propagate_attributes
+    from opentelemetry import trace as otel
 
     lf = client()
-    nested = trace_id is None and lf.get_current_trace_id() is not None
+    nested = trace_id is None and otel.get_current_span().get_span_context().is_valid
     with lf.start_as_current_observation(
         as_type="agent",
         name=name,
@@ -116,7 +134,7 @@ def run_config(*, thread_id: str, callbacks: list[Any]) -> dict:
     return {
         "configurable": {"thread_id": thread_id},
         "callbacks": callbacks,
-        "run_name": "agent-graph",
+        "run_name": "run-graph",
     }
 
 

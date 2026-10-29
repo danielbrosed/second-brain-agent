@@ -33,6 +33,7 @@ from .vault import Vault, match_path, trust_warnings
 MAX_ANSWER_ATTEMPTS = 2
 MAX_REVISIONS = 3
 NOT_FOUND = "The vault has no note that covers this."
+_ODD_SPACES = re.compile("[\u00a0\u2007\u202f]")  # models like narrow no-break spaces
 UNGROUNDED = "I could not ground an answer in the vault, so I am not giving one."
 
 
@@ -101,8 +102,10 @@ def build_graph(
     stale_after_days: int = 90,
     checkpointer=None,
 ):
-    def chain(prompt: str, schema: type[BaseModel], run_name: str):
-        return prompts.structured_chain(prompt, llm, schema, structured_method, run_name)
+    def call(prompt: str, schema: type[BaseModel], step: str, variables: dict, config):
+        return prompts.run_structured(
+            prompt, llm, schema, structured_method, step, variables, config
+        )
 
     # --- ask -----------------------------------------------------------------------------
 
@@ -119,17 +122,20 @@ def build_graph(
         attempts = state.get("attempts", 0) + 1
         if not state.get("context"):
             return {"found": False, "answer": NOT_FOUND, "citations": [], "attempts": attempts}
-        result = chain(prompts.ANSWER, Answer, "write-answer").invoke(
+        result = call(
+            prompts.ANSWER,
+            Answer,
+            "write-answer",
             {
                 "context": render_context(state["context"]),
                 "question": state["question"],
                 "feedback": state.get("feedback", ""),
             },
-            config=config,
+            config,
         )
         return {
             "found": result.found,
-            "answer": result.answer.strip(),
+            "answer": _ODD_SPACES.sub(" ", result.answer).strip(),
             "citations": result.citations,
             "attempts": attempts,
         }
@@ -170,7 +176,10 @@ def build_graph(
                 f"\n\nThe founder reviewed your previous draft and asked: {state['revision']}\n"
                 f"Previous draft:\n{previous['markdown']}"
             )
-        result = chain(prompts.DRAFT_DECISION, DecisionDraft, "draft-note").invoke(
+        result = call(
+            prompts.DRAFT_DECISION,
+            DecisionDraft,
+            "draft-note",
             {
                 "map": vault.map_text(),
                 "today": state["as_of"],
@@ -178,7 +187,7 @@ def build_graph(
                 "businesses": ", ".join(vault.businesses()),
                 "feedback": feedback,
             },
-            config=config,
+            config,
         )
         business = result.business.strip().lower()
         if business not in vault.businesses():

@@ -11,7 +11,7 @@ import re
 from typing import Any
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import Runnable
+from langchain_core.runnables import Runnable, RunnableConfig, RunnableSequence
 
 from . import tracing
 
@@ -68,13 +68,16 @@ PROMPTS: dict[str, list[dict[str, str]]] = {
                 "- business: one of {{businesses}}.\n"
                 "- slug: 3 to 6 lowercase words joined by hyphens.\n"
                 "- title: the decision in one sentence.\n"
-                "- body: what was decided and why, 3 to 8 lines of plain markdown, without "
-                "frontmatter or heading.\n"
+                "- body: what was decided and why, as one paragraph of 2 to 5 complete "
+                "sentences; add a short bullet list only when the decision has several parts. "
+                "No frontmatter, no heading.\n"
                 "- supersedes: the exact MAP path of the current decision note this one replaces, "
                 "or an empty string.\n"
                 "- map_answers: the question this note answers, as it should read in the MAP, "
                 "under 20 words.\n"
-                "Use only what the founder said. Do not invent figures, dates or reasons."
+                "Use only what the founder said. Do not add reasons, benefits, consequences, "
+                "figures or dates they did not state, even plausible ones: a shorter note is "
+                "better than an invented one."
                 "{{feedback}}"
             ),
         },
@@ -129,12 +132,33 @@ def chat_prompt(name: str) -> ChatPromptTemplate:
     )
 
 
-def structured_chain(name: str, llm: Any, schema: type, method: str, run_name: str) -> Runnable:
-    """Prompt + model with structured output, traced as one named step.
+def structured_chain(name: str, llm: Any, schema: type, method: str, step: str) -> Runnable:
+    """Prompt + model with structured output, with the model call named after its step.
 
-    The template step is tagged hidden: the generation below it already shows the rendered
-    messages, and the template only needs to run to link the generation to its prompt version.
+    The template is tagged hidden (and not exported): the generation already shows the rendered
+    messages, and the template only needs to run so the generation links to its prompt version.
     """
     template = chat_prompt(name).with_config(tags=[tracing.HIDDEN])
-    model = llm.with_structured_output(schema, method=method)
-    return (template | model).with_config(run_name=run_name)
+    # Strict decoding makes the provider enforce the schema; without it some models answer with
+    # the schema itself instead of an instance of it.
+    strict = True if method == "json_schema" else None
+    structured = llm.with_structured_output(schema, method=method, strict=strict)
+    if isinstance(structured, RunnableSequence):
+        model, *parsers = structured.steps
+        structured = RunnableSequence(model.with_config(run_name=step), *parsers)
+    return template | structured
+
+
+def run_structured(
+    name: str,
+    llm: Any,
+    schema: type,
+    method: str,
+    step: str,
+    variables: dict,
+    config: RunnableConfig | None = None,
+) -> Any:
+    # run_name goes in the call, not in a with_config wrapper: a wrapped runnable invoked from
+    # inside a retriever would attach to the graph node instead of the retriever that called it.
+    chain = structured_chain(name, llm, schema, method, step)
+    return chain.invoke(variables, config={**(config or {}), "run_name": step})

@@ -81,16 +81,19 @@ def tokens(*, output, **_):
 
 
 def make_judge(llm: BaseChatModel, method: str):
-    chain = prompts.structured_chain(prompts.JUDGE, llm, Verdict, method, "judge-answer")
-
     def correct(*, input, output, expected_output, **_):
-        verdict = chain.invoke(
+        verdict = prompts.run_structured(
+            prompts.JUDGE,
+            llm,
+            Verdict,
+            method,
+            "judge-answer",
             {
                 "question": input["question"],
                 "facts": "; ".join(expected_output["facts"]) or "(none)",
                 "answerable": "yes" if expected_output["answerable"] else "no",
                 "answer": output["answer"],
-            }
+            },
         )
         return Evaluation(
             name="correct", value=1.0 if verdict.correct else 0.0, comment=verdict.reason
