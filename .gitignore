@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+
+# Secrets and local state
+.env
+.env.*
+!.env.example
+.cache/
+
+# Obsidian workspace state (the vault itself is tracked)
+vault/.obsidian/workspace*.json
+vault/.trash/

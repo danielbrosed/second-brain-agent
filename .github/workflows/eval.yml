@@ -1,0 +1,41 @@
+name: eval
+
+# Runs the question set against the real model and records the experiment in Langfuse.
+# Manual on purpose: it spends model quota.
+on:
+  workflow_dispatch:
+    inputs:
+      retriever:
+        description: map, vector or both
+        default: both
+      limit:
+        description: only the first N questions (empty for all)
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    env:
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_BASE_URL: ${{ vars.LANGFUSE_BASE_URL || 'https://cloud.langfuse.com' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+      - run: uv sync --locked
+      - name: Run the experiments
+        env:
+          RETRIEVER: ${{ inputs.retriever }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          args=(--retriever "$RETRIEVER")
+          if [ -n "$LIMIT" ]; then args+=(--limit "$LIMIT"); fi
+          uv run sba eval "${args[@]}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: eval-results
+          path: evals/results/

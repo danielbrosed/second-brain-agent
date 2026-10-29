@@ -1,0 +1,43 @@
+[project]
+name = "second-brain-agent"
+version = "0.1.0"
+description = "A LangGraph agent that answers from a markdown second brain with citations, captures decisions behind human approval, and is traced and evaluated with Langfuse."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Daniel Brosed" }]
+requires-python = ">=3.12"
+dependencies = [
+    "fastembed>=0.9.1",
+    "langchain-core>=1.7.1",
+    "langchain-openai>=1.7.3",
+    "langfuse>=5.0.4",
+    "langgraph>=1.2.18",
+    "langgraph-checkpoint-sqlite>=3.1.2",
+    "numpy>=2.5.4",
+    "pydantic>=2.14.2",
+    "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+sba = "second_brain_agent.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
