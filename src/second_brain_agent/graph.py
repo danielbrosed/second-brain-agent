@@ -160,6 +160,9 @@ def build_graph(
                 "warnings": [],
                 "feedback": "",
             }
+        if not state.get("found"):
+            # No answer means no figure to trust or check: sources and warnings would mislead.
+            return {"citations": [], "warnings": [], "feedback": ""}
         as_of = date.fromisoformat(state["as_of"])
         warnings = [
             w for path in cited for w in trust_warnings(vault.read(path), as_of, stale_after_days)

@@ -101,6 +101,16 @@ def test_not_found_answer_has_no_warnings(settings):
     assert not result.found and result.warnings == []
 
 
+def test_not_found_answer_cites_nothing_even_if_the_model_does(settings):
+    llm = ScriptedLLM(
+        RouteDecision=[route("tidepool/customers.md")],
+        Answer=[answer("tidepool/customers.md", found=False)],
+    )
+    result = Agent(settings, llm=llm).ask("What is Tidepool's churn?", as_of=AS_OF)
+    assert not result.found
+    assert result.citations == [] and result.warnings == []
+
+
 class FakeIndex:
     def __init__(self, vault):
         note = vault.read("tidepool/offer-and-pricing.md")
