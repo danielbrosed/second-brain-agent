@@ -108,11 +108,38 @@ The same run surfaced two real agent failures:
   Fixed in the answer prompt (v2), for both retrievers.
 - "What is Tidepool's monthly recurring revenue?" found nothing, because the map row says
   "MRR". This one is left unfixed on purpose: tuning the router to a test question would only
-  inflate the score. It is a real weakness of routing by the map's wording.
+  inflate the score. In the final run below the router found it, so the honest reading is
+  that routing on the map's wording is unstable, not that it was fixed.
 
 ### Map-first vs vector
 
-Both retrievers, with the same prompt versions and the calibrated judge: pending.
+44 questions, both retrievers with the same prompt versions, agent `gpt-oss-120b`, calibrated
+judge `gpt-oss-20b`, evaluated as of 2026-10-30. Each run is a Langfuse experiment on the
+`second-brain-qa` dataset; the raw results are in [`evals/results/`](evals/results/).
+
+| | Map-first | Vector (top 4 chunks) |
+|---|---|---|
+| Correct, by the calibrated judge | **97.7%** (42 of 43) | 95.1% (39 of 41) |
+| Read the notes the answer needs | **100%** | 97.6% |
+| Cited the notes the answer needs | **100%** | 96.4% |
+| Answered, or declined, when it should | **100%** | 95.5% |
+| Trust warning on snapshot or unverified notes | 100% | 100% |
+| Tokens per question | 2,640 | **1,108** |
+| Seconds per question | 11.7 | **5.7** |
+
+- **Where vector failed, chunks were the cause.** For a question that needs two notes, the top
+  four chunks missed one of them. For "Which client is on the care plan?", the chunk that
+  mentions the care plan did not carry the client's name. Map-first reads notes whole, so it
+  missed neither.
+- **The one map-first failure is a debatable label**: listing the roadmap without saying it is
+  not committed.
+- **The price of map-first is the map**, read on every question: 2.4 times the tokens and twice
+  the time, on Groq's free tier.
+- **At 31 notes the gap in correctness is small**, two failures against one. Map-first buys
+  reliability on multi-note and whole-note questions; vector is cheaper and faster. Which
+  is worth it depends on how costly a wrong answer is.
+- The judge returned invalid JSON on one map-first answer and three vector answers, even after
+  a retry; those are left unscored rather than guessed.
 
 ## Quickstart
 
