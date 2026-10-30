@@ -248,14 +248,14 @@ def run_experiment(
         "as_of": EVAL_AS_OF.isoformat(),
         "items": len(rows),
         "summary": summary,
-        "langfuse_url": url,
         "rows": rows,
     }
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    # The results are committed; the Langfuse link names a private project, so it stays out.
     (RESULTS_DIR / f"{run_name}.json").write_text(
         json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
     )
-    return report
+    return {**report, "langfuse_url": url}
 
 
 def summarize(rows: list[dict]) -> dict:
