@@ -16,3 +16,6 @@ dist/
 # Obsidian workspace state (the vault itself is tracked)
 vault/.obsidian/workspace*.json
 vault/.trash/
+
+# Screenshots before cropping
+docs/screenshots/raw/

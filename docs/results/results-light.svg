@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="608" viewBox="0 0 960 608" role="img" aria-label="Map-first vs vector retrieval">
+<title>Map-first vs vector retrieval</title>
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#2F7A5A"/><stop offset="1" stop-color="#5FB38A"/></linearGradient></defs>
+<rect x="0.5" y="0.5" width="959" height="607" rx="20" fill="#F4F7F5" stroke="#D3DFD8"/>
+<text x="40" y="52" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" letter-spacing="2.2" fill="#5B6F6A">SECOND-BRAIN-AGENT · EVALUATION</text>
+<text x="40" y="88" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-0.5" fill="#0D262B">Map-first vs vector retrieval</text>
+<text x="40" y="112" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#5B6F6A">44 questions · same prompts · agent openai/gpt-oss-120b · 30 Oct 2026 · Langfuse experiments</text>
+<rect x="700" y="62" width="14" height="14" rx="4" fill="url(#g)"/>
+<text x="722" y="74" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#0D262B">Map-first</text>
+<rect x="810" y="62" width="14" height="14" rx="4" fill="#A3B3AD"/>
+<text x="832" y="74" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#0D262B">Vector</text>
+<text x="40" y="168" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Correct, by the calibrated judge<tspan font-weight="400" fill="#5B6F6A" font-size="12"></tspan></text>
+<rect x="40" y="178" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="178" width="625.3" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="187" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">map  97.7%</text>
+<rect x="40" y="192" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="192" width="608.6" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="201" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">vec  95.1%</text>
+<text x="40" y="226" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Read the notes the answer needs<tspan font-weight="400" fill="#5B6F6A" font-size="12"></tspan></text>
+<rect x="40" y="236" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="236" width="640.0" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="245" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">map  100.0%</text>
+<rect x="40" y="250" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="250" width="624.6" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="259" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">vec  97.6%</text>
+<text x="40" y="284" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Cited the notes the answer needs<tspan font-weight="400" fill="#5B6F6A" font-size="12"></tspan></text>
+<rect x="40" y="294" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="294" width="640.0" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="303" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">map  100.0%</text>
+<rect x="40" y="308" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="308" width="617.0" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="317" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">vec  96.4%</text>
+<text x="40" y="342" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Answered, or declined, when it should<tspan font-weight="400" fill="#5B6F6A" font-size="12"></tspan></text>
+<rect x="40" y="352" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="352" width="640.0" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="361" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">map  100.0%</text>
+<rect x="40" y="366" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="366" width="611.2" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="375" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">vec  95.5%</text>
+<text x="40" y="400" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Tokens per question<tspan font-weight="400" fill="#5B6F6A" font-size="12">  ·  lower is better</tspan></text>
+<rect x="40" y="410" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="410" width="592.6" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="419" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">map  2,640</text>
+<rect x="40" y="424" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="424" width="248.6" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="433" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">vec  1,108</text>
+<text x="40" y="458" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0D262B">Seconds per question<tspan font-weight="400" fill="#5B6F6A" font-size="12">  ·  lower is better</tspan></text>
+<rect x="40" y="468" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="468" width="592.6" height="9" rx="4.5" fill="url(#g)"/>
+<text x="920" y="477" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="400" fill="#0D262B">map  11.7 s</text>
+<rect x="40" y="482" width="640" height="9" rx="4.5" fill="#E1E9E4"/>
+<rect x="40" y="482" width="287.7" height="9" rx="4.5" fill="#A3B3AD"/>
+<text x="920" y="491" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" fill="#0D262B">vec  5.7 s</text>
+<line x1="40" x2="920" y1="524" y2="524" stroke="#D3DFD8"/>
+<text x="40" y="548" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#5B6F6A"><tspan font-weight="600" fill="#0D262B">Judge calibrated first.</tspan> Agreement with hand labels went from 65.1% (prompt v1) to 97.7% (v2) before any of these scores were trusted.</text>
+<text x="40" y="570" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#5B6F6A">Vector misses came from chunk boundaries: a two-note question and a client name split from its plan.</text>
+</svg>
